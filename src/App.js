@@ -14,9 +14,15 @@ let fakeServerData = [
 
 class Person extends Component {
   render(){
+    let data = this.props.data;
     return (
       <div>
-        Name: {this.props.data.name} Age: {this.props.data.age}
+        <div>
+          <b>{data.title}</b>
+        </div>
+        <div>
+          <img src={data.image_url} alt={data.title}/>
+        </div>
       </div>
     );
   }
@@ -27,6 +33,7 @@ class App extends Component {
     super();
     this.state = {
       serverData:[],
+      realServerData:{},
       filterString: 'pizza'
     };
   }
@@ -39,7 +46,7 @@ class App extends Component {
 
     fetch(`${proxy}http://food2fork.com/api/search?key=${key}&q=${this.state.filterString}`)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => this.setState({serverData: data.recipes.slice(0,8)}));
   }
 
   render() {
@@ -49,8 +56,8 @@ class App extends Component {
         <header className="">
         </header>
         <main>
-          {this.state.serverData.map(x => 
-            <Person data = {x}/>
+          {this.state.serverData.map((x, key) => 
+            <Person data = {x} key = {key}/>
           )}
         </main>
       </div>
