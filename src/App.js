@@ -36,7 +36,7 @@ class Person extends Component {
           </div>
         </div>
         <div className={this.state.hovering ? "addcontainer slide_add" : "add_container"}>
-          <i class="food_add fa fa-star fa-lg" aria-hidden="true"></i>
+          <i className="food_add fa fa-star fa-lg" aria-hidden="true"></i>
         </div>
       </div>
     );
@@ -52,30 +52,13 @@ class App extends Component {
     };
   }
 
-  
-
   componentDidMount() {
-    /*
-    const key = "8699278b36f1587611b0adfbc56773b5";
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
-
-    
-    fetch(`${proxy}http://food2fork.com/api/search?key=${key}&q=${this.state.filterString}`)
-    .then(response => response.json())
-    .then(data => {console.log(data); return this.setState({serverData: data.recipes.slice(1,9)})});
-    */
-
     const customData = "https://api.jsonbin.io/b/5b5b8601f24d8943d04eebf2/16"
     
     fetch(`${customData}`)
     .then(response => response.json())
     .then(data => this.setState({serverData: data.recipes}))
   }
-
-  componentDidUpdate() {
-    
-  }
-  
 
   render() {
     let serverData = this.state.serverData;
