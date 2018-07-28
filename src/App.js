@@ -23,7 +23,8 @@ class App extends Component {
     super();
     this.state = {
       serverData: "",
-      filterString: 'sushi roll'
+      filterString: "sushi",
+      filteredData: ""
     };
   }
 
@@ -40,18 +41,28 @@ class App extends Component {
 
     fetch(`${customData}`)
     .then(response => response.json())
-    .then(data => {console.log(data); return this.setState({serverData: data.recipes})});
+    .then(data => this.setState({serverData: data.recipes}))
+  }
+
+  componentDidUpdate() {
+    
   }
 
   render() {
     let serverData = this.state.serverData;
+
+    if(this.state.serverData !== "")
+      serverData = this.state.serverData.filter(x => x.type === this.state.filterString);
+      
     return (
       <div className="App">
         {serverData !== "" ?
         <div className="content">
           <header className="">
-            <button onClick={() => this.setState({filterString: "sushi roll"})}>Sushi</button>
-            <button onClick={() => this.setState({filterString: "ramen"})}>Ramen</button>
+            <button onClick={() => this.setState({filterString: "sushi"})}>Sushi</button>
+            <button onClick={() => this.setState({filterString: "sashimi"})}>sashimi</button>
+            <button onClick={() => this.setState({filterString: "nigiri"})}>Ramen</button>
+            <button onClick={() => this.setState({filterString: "miso soup"})}>miso soup</button>
           </header>
           <main>
             {serverData.map((x, key) => 
