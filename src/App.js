@@ -2,10 +2,25 @@ import React, { Component } from 'react';
 import './App.css';
 
 class Person extends Component {
+  constructor(){
+    super();
+    this.state = {
+      hovering: false
+    };
+  }
+
   render(){
+    const hoverHandlerEnter = () => {
+      this.setState({hovering:true});
+    }
+
+    const hoverHandlerLeave = () => {
+      this.setState({hovering:false});
+    }
+
     let data = this.props.data;
     return (
-      <div className="food_container">
+      <div className="food_container" onMouseEnter={hoverHandlerEnter} onMouseLeave={hoverHandlerLeave}>
         <div className="food_title">
           {data.title}
         </div>
@@ -13,12 +28,12 @@ class Person extends Component {
           <div className="small_info">
             {data.amount > 1 ? `${data.amount} pieces`: ""}
           </div>
-          <div className="">
-            {data.contents.map(x => x)}<br/>
-            {`Price: ${data.price}`}
+          <div className="main_info">
+            Ingredients: {data.contents.map((el, key) => key !== data.contents.length - 1 ? `${el}, ` : el)}.
+            <br/>{`Price: ${data.price}`}
           </div>
         </div>
-        <div className="add_container">
+        <div className={this.state.hovering ? "addcontainer slide_add" : "add_container"}>
           <div  className="food_add">
             ADD
           </div>
@@ -50,7 +65,7 @@ class App extends Component {
     .then(data => {console.log(data); return this.setState({serverData: data.recipes.slice(1,9)})});
     */
 
-    const customData = "https://api.jsonbin.io/b/5b5b8601f24d8943d04eebf2/14"
+    const customData = "https://api.jsonbin.io/b/5b5b8601f24d8943d04eebf2/15"
     
     fetch(`${customData}`)
     .then(response => response.json())
@@ -73,12 +88,12 @@ class App extends Component {
       <div className="App">
         {serverData !== "" ?
         <div className="content">
-          <header className="">
-            <button onClick={() => this.setState({filterString: "sushi"})}>Sushi</button>
-            <button onClick={() => this.setState({filterString: "nigiri"})}>Nigiri</button>
-            <button onClick={() => this.setState({filterString: "ramen"})}>Ramen</button>
-            <button onClick={() => this.setState({filterString: "miso soup"})}>Miso Soup</button>
-          </header>
+          <div className="option_container">
+            <div className="menu_option" onClick={() => this.setState({filterString: "sushi"})}>Sushi</div>
+            <div className="menu_option" onClick={() => this.setState({filterString: "nigiri"})}>Nigiri</div>
+            <div className="menu_option" onClick={() => this.setState({filterString: "ramen"})}>Ramen</div>
+            <div className="menu_option" onClick={() => this.setState({filterString: "miso soup"})}>Miso Soup</div>
+          </div>
           <main>
             {serverData.map((x, key) => 
               <Person data = {x} key = {key}/>
