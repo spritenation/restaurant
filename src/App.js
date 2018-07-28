@@ -34,9 +34,7 @@ class Person extends Component {
           </div>
         </div>
         <div className={this.state.hovering ? "addcontainer slide_add" : "add_container"}>
-          <div  className="food_add">
-            ADD
-          </div>
+          <i class="food_add fa fa-star fa-lg" aria-hidden="true"></i>
         </div>
       </div>
     );
