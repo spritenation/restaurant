@@ -15,7 +15,10 @@ main{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
+  -moz-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
+  box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
 }
 
 .menu_option{
@@ -36,7 +39,7 @@ main{
   -moz-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
   box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
   transition: transform .1s;
-
+  
 }
 
 .food_container:hover {

@@ -30,7 +30,9 @@ class Person extends Component {
           </div>
           <div className="main_info">
             Ingredients: {data.contents.map((el, key) => key !== data.contents.length - 1 ? `${el}, ` : el)}.
-            <br/>{`Price: ${data.price}`}
+          </div>
+          <div className="small_info">
+          {`Price: ${data.price} `} &euro;
           </div>
         </div>
         <div className={this.state.hovering ? "addcontainer slide_add" : "add_container"}>
@@ -63,7 +65,7 @@ class App extends Component {
     .then(data => {console.log(data); return this.setState({serverData: data.recipes.slice(1,9)})});
     */
 
-    const customData = "https://api.jsonbin.io/b/5b5b8601f24d8943d04eebf2/15"
+    const customData = "https://api.jsonbin.io/b/5b5b8601f24d8943d04eebf2/16"
     
     fetch(`${customData}`)
     .then(response => response.json())
