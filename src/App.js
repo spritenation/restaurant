@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import './App.css';
+import Favorites from './Favorites';
 
-class Person extends Component {
+class Dish extends Component {
   constructor(){
     super();
     this.state = {
-      hovering: false
+      hovering: false,
+      favorite: false
     };
   }
 
   render(){
+    let data = this.props.data;
+
+    const favoriteHangler = (data) => {
+      if(!this.state.favorite){
+        //send to App 'true'
+        this.props.updateFavoritesCB('lol');
+      }else{
+        this.setState({favorite:false});
+      }
+    }
+
     const hoverHandlerEnter = () => {
       this.setState({hovering:true});
     }
@@ -18,7 +31,6 @@ class Person extends Component {
       this.setState({hovering:false});
     }
 
-    let data = this.props.data;
     return (
       <div className="food_container shadow" onMouseEnter={hoverHandlerEnter} onMouseLeave={hoverHandlerLeave}>
         <div className="food_title">
@@ -35,15 +47,15 @@ class Person extends Component {
           {`Price: ${data.price} `} &euro;
           </div>
         </div>
-        <div className={this.state.hovering ? "addcontainer slide_add" : "add_container"}>
-          <i className="food_add fa fa-star fa-lg" aria-hidden="true"></i>
+        <div className={this.state.hovering ? "slide_add" : "add_container"} onClick={() => favoriteHangler(data.id)}>
+          <i className={this.state.favorite ? "food_add fa fa-star fa-lg" : "food_add fa fa-star-o fa-lg"} aria-hidden="true"></i>
         </div>
       </div>
     );
   }
 }
 
-class Favorites extends Component{
+class Favorite extends Component{
   render(){
     return (
       <div className="favorites_button">
@@ -67,20 +79,25 @@ class Navbar extends Component{
           <div className="hover_effect"></div>
             About
         </div>
-        <Favorites/>
+        <Favorite/>
       </div>
     )
   }
 }
 
 class App extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       serverData: "",
-      filterString: "sushi"
+      filterString: "sushi",
+      favorites: new Favorites(),
+      favorites2: ''
     };
+    this.updateFavorites = this.updateFavorites
   }
+
+  updateFavorites = (favorites2) => {this.setState({ favorites2 })}
 
   componentDidMount() {
     const customData = "https://api.jsonbin.io/b/5b5b8601f24d8943d04eebf2/17"
@@ -103,7 +120,7 @@ class App extends Component {
         <div className="content">
           <Navbar/>
           <div className="landing_container">
-
+            {this.state.favorites2}
           </div>
           <div className="option_container shadow">
             <div className="menu_option" onClick={() => this.setState({filterString: "sushi"})}>Sushi</div>
@@ -113,7 +130,7 @@ class App extends Component {
           </div>
           <div className="menu">
             {serverData.map((x, key) => 
-              <Person data = {x} key = {key}/>
+              <Dish data = {x} key = {key} updateFavoritesCB = {this.updateFavorites}/>
             )}
           </div>
           <main>
