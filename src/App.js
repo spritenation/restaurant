@@ -14,10 +14,10 @@ class Dish extends Component {
   render(){
     let data = this.props.data;
 
-    const favoriteHangler = (data) => {
+    const favoriteHangler = (id, title, contents) => {
       if(!this.state.favorite){
         //send to App 'true'
-        this.props.updateFavoritesCB('lol');
+        this.props.updateFavoritesCB(id, title, contents);
       }else{
         this.setState({favorite:false});
       }
@@ -47,7 +47,7 @@ class Dish extends Component {
           {`Price: ${data.price} `} &euro;
           </div>
         </div>
-        <div className={this.state.hovering ? "slide_add" : "add_container"} onClick={() => favoriteHangler(data.id)}>
+        <div className={this.state.hovering ? "slide_add" : "add_container"} onClick={() => favoriteHangler(data.id, data.title, data.contents)}>
           <i className={this.state.favorite ? "food_add fa fa-star fa-lg" : "food_add fa fa-star-o fa-lg"} aria-hidden="true"></i>
         </div>
       </div>
@@ -92,12 +92,18 @@ class App extends Component {
       serverData: "",
       filterString: "sushi",
       favorites: new Favorites(),
-      favorites2: ''
+      favorites2: new Favorites()
     };
-    this.updateFavorites = this.updateFavorites
+    this.updateFavorites = this.updateFavorites;
   }
 
-  updateFavorites = (favorites2) => {this.setState({ favorites2 })}
+  //UPDATE FAVORITES HERE
+  updateFavorites = (id, title, contents) => {
+    
+    this.state.favorites2.addFavorite(id, title, contents);
+    this.setState(this.state.favorites2);
+    console.log(this.state.favorites2)
+  }
 
   componentDidMount() {
     const customData = "https://api.jsonbin.io/b/5b5b8601f24d8943d04eebf2/17"
@@ -120,7 +126,7 @@ class App extends Component {
         <div className="content">
           <Navbar/>
           <div className="landing_container">
-            {this.state.favorites2}
+
           </div>
           <div className="option_container shadow">
             <div className="menu_option" onClick={() => this.setState({filterString: "sushi"})}>Sushi</div>
