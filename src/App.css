@@ -1,24 +1,108 @@
-main{
+.App {
+  text-align: center;
+}
+
+.shadow {
+  -webkit-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
+  -moz-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
+  box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
+}
+
+/* HEADER */
+.header_container {
+  width: 95%;
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 125px 125px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 20px;
+}
+
+/* NAV BAR */
+
+.hover_effect{
+  border-left: 2px solid #5a5a5a;
+  height: 0px;
+  margin: 0 auto;
+  width: 0px;
+  transition: all 0.2s;
+  position: relative;
+  z-index: 2;
+}
+
+.about_button {
+  cursor: pointer;
+}
+
+.favorites_button {
+  cursor: pointer;
+}
+
+.about_button:hover .hover_effect{
+  height: 20px;
+}
+
+.about_button:hover .hover_effect{
+  height: 20px;
+}
+
+.favorites_button:hover .hover_effect{
+  height: 20px;
+}
+
+
+
+/* LANDING */
+
+.landing_container {
+  height: 100vh;
+  min-height: 500px;
+}
+
+/* FAVORITES */
+
+.favorites_button span{
+  position: relative;
+  top: 17px;
+}
+
+.favorites_button .favorites_list{
+  float:right;
+  position: relative;
+  top: 37px;
+  opacity: 0;
+  visibility: hidden;
+  background: #F9AA36;
+  width: 200px;
+  transition: all 0.3s ease-in-out;
+}
+
+.favorites_button:hover .favorites_list{
+  opacity: 1;
+  visibility: visible;
+}
+
+.favorite_item {
+  padding: 10px;
+}
+
+/* MENU / FOOD DATA */
+.menu {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: all .5s;
 }
 
-.App {
-  text-align: center;
-}
-
-/* FOOD DATA */
 .option_container{
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  -webkit-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
-  -moz-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
-  box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
 }
 
 .menu_option{
@@ -35,11 +119,7 @@ main{
   margin-bottom: 15px;
   width: 920px;
   height: 100px;
-  -webkit-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
-  -moz-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
-  box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
   transition: transform .1s;
-  
 }
 
 .food_container:hover {
@@ -74,7 +154,6 @@ main{
 .food_add{ 
   color: white;
   margin: 0 auto;
-  
 }
 
 .add_container{
