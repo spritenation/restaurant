@@ -15,12 +15,7 @@ class Dish extends Component {
     let data = this.props.data;
 
     const favoriteHangler = (id, title, contents) => {
-      if(!this.state.favorite){
-        //send to App 'true'
-        this.props.updateFavoritesCB(id, title, contents);
-      }else{
-        this.setState({favorite:false});
-      }
+      this.props.updateFavoritesCB(id, title, contents);
     }
 
     const hoverHandlerEnter = () => {
@@ -91,18 +86,23 @@ class App extends Component {
     this.state = {
       serverData: "",
       filterString: "sushi",
-      favorites: new Favorites(),
-      favorites2: new Favorites()
+      favoriteData: new Favorites()
     };
     this.updateFavorites = this.updateFavorites;
   }
 
   //UPDATE FAVORITES HERE
   updateFavorites = (id, title, contents) => {
+    if(this.state.favoriteData.isFavorite(id)){
+      this.state.favoriteData.addFavorite(id, title, contents);
+    }else{
+      this.state.favoriteData.deleteFavorite(id);
+    }
+
+    this.setState(this.state.favoriteData);
     
-    this.state.favorites2.addFavorite(id, title, contents);
-    this.setState(this.state.favorites2);
-    console.log(this.state.favorites2)
+
+    console.log(this.state.favoriteData)
   }
 
   componentDidMount() {
@@ -126,7 +126,7 @@ class App extends Component {
         <div className="content">
           <Navbar/>
           <div className="landing_container">
-
+            {this.state.favoriteData.favorites.map((x, key) => x.title)}
           </div>
           <div className="option_container shadow">
             <div className="menu_option" onClick={() => this.setState({filterString: "sushi"})}>Sushi</div>
