@@ -10,17 +10,22 @@
 
 /* HEADER */
 .header_container {
-  width: 95%;
-  position: absolute;
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 125px 125px;
+  grid-template-columns: 1fr 50px 50px 20px;
   align-items: center;
   font-size: 12px;
   font-weight: 400;
-  padding: 20px;
+  padding: 20px 0;
+  top:0;
+  
 }
 
 /* NAV BAR */
+
+.nav_bar {
+  grid-area: nav;
+}
 
 .hover_effect{
   border-left: 2px solid #5a5a5a;
@@ -52,16 +57,43 @@
   height: 20px;
 }
 
-
+.nav_text{
+  font-weight: 700;
+  font-size: 20px;
+  text-align: left;
+  padding-left: 20px;
+}
 
 /* LANDING */
 
 .landing_container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "nav hero" "menu hero" ;
   height: 100vh;
-  min-height: 500px;
+  min-height: 600px;
+}
 
+.landing_side {
+
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url("./img/splash1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  grid-area: hero;
+  color: #fcfcfc;
+  font-weight: 700;
+  font-size: 80px;
+
+  -webkit-text-shadow: 0px 0px 5px rgba(150, 150, 150, 0.5);
+  -moz-text-shadow: 0px 0px 5px rgba(150, 150, 150, 0.5);
+  text-shadow: 0px 0px 5px rgba(150, 150, 150, 0.5);
 }
 
 /* FAVORITES */
@@ -105,43 +137,42 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   transition: all .5s;
+  grid-area: menu;
 }
 
 .option_container{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  font-size: 12px;
 }
 
 .menu_option{
   cursor: pointer;
   padding: 20px 10px;
-  margin: 0 10px;
-  width: 100px;
+  margin: 0 0px;
 }
 
 .food_container {
   display: grid;
   overflow: hidden;
   grid-template-columns: 8fr 8fr 50px;
-  margin-bottom: 15px;
-  width: 920px;
-  height: 100px;
+
+  width: 95%;
+  height: 85px;
   transition: transform .1s;
 }
 
 .food_container:hover {
-  transform: scale(1.060) ;
+  transform: scale(1.05) ;
   cursor: default;
 }
 
 .food_title{
   margin: auto;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -160,11 +191,11 @@
 .main_info{
   font-size: 12px;
   color: #5a5a5a;
-  font-weight: 800;
+  
 }
 
 .food_add{ 
-  color: white;
+  color: #5a5a5a;
   margin: 0 auto;
 }
 
@@ -182,7 +213,6 @@
   position: relative;
   left:0px;
   cursor: pointer;
-  background: #F9AA36;
   transition: all 0.2s ease-out;
   transition-delay: .3s;
   display: flex;
@@ -192,6 +222,22 @@
 @media only screen and (max-width: 1024px) {
   .food_container{
     width: 600px;
+  }
+
+  .landing_container {
+    grid-template-columns: 1fr;
+    grid-template-areas: "nav" "hero" "menu";
+    height: auto;
+    min-height: 600px;
+  }
+
+  .hero {
+    height: 100vh;
+    
+  }
+
+  .menu{
+    grid-area: menu;
   }
 }
 

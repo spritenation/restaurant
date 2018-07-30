@@ -34,23 +34,21 @@ class Dish extends Component {
     }
 
     return (
-      <div className="food_container shadow" onMouseEnter={hoverHandlerEnter} onMouseLeave={hoverHandlerLeave}>
+      <div className="food_container" onMouseEnter={hoverHandlerEnter} onMouseLeave={hoverHandlerLeave}>
         <div className="food_title">
           {data.title}
         </div>
         <div  className="food_info">
-          <div className="small_info">
-            {data.amount > 1 ? `${data.amount} pieces`: ""}
-          </div>
+          
           <div className="main_info">
             Ingredients: {data.contents.map((el, key) => key !== data.contents.length - 1 ? `${el}, ` : el)}.
           </div>
           <div className="small_info">
-          {`Price: ${data.price} `} &euro;
+          {`Price: ${data.price} `} &euro; {data.amount > 1 ? `(${data.amount} pieces)`: ""}
           </div>
         </div>
         <div className={this.state.hovering ? "slide_add" : "add_container"} onClick={() => favoriteHangler(data.id, data.title, data.contents)}>
-          <i className={this.state.favorite ? "food_add fa fa-star fa-lg" : "food_add fa fa-star-o fa-lg"} aria-hidden="true"></i>
+          <i className={this.state.favorite ? "food_add fa fa-heart" : "food_add fa fa-heart-o"} aria-hidden="true"></i>
         </div>
       </div>
     );
@@ -75,8 +73,8 @@ class Navbar extends Component{
   render(){
     return (
       <div className="header_container">
-        <div className="">
-          
+        <div className="nav_text">
+          Discover Asia.
         </div>
         <div className="about_button">
             About
@@ -146,21 +144,27 @@ class App extends Component {
         
         {serverData !== "" ?
         <div className="content">
-          <Navbar favoriteData={this.state.favoriteData}/>
           <div className="landing_container">
+            <div className="navbar">
+              <Navbar favoriteData={this.state.favoriteData}/>
+            </div>
+            <div className="menu">
+              <div className="option_container">
+                <div className="menu_option" onClick={() => this.setState({filterString: "sushi"})}>SUSHI</div>
+                <div className="menu_option" onClick={() => this.setState({filterString: "nigiri"})}>NIGIRI</div>
+                <div className="menu_option" onClick={() => this.setState({filterString: "ramen"})}>RAMEN</div>
+                <div className="menu_option" onClick={() => this.setState({filterString: "miso soup"})}>SOUP</div>
+              </div>
+              {serverData.map((x, key) => 
+                <Dish data={x} key={key} updateFavoritesCB={this.updateFavorites} favoriteDataCB={this.state.favoriteData}/>
+              )}
+            </div>
+            <div className="hero">
+              ASIAN FOOD
+            </div>
+          </div>
           
-          </div>
-          <div className="option_container shadow">
-            <div className="menu_option" onClick={() => this.setState({filterString: "sushi"})}>Sushi</div>
-            <div className="menu_option" onClick={() => this.setState({filterString: "nigiri"})}>Nigiri</div>
-            <div className="menu_option" onClick={() => this.setState({filterString: "ramen"})}>Ramen</div>
-            <div className="menu_option" onClick={() => this.setState({filterString: "miso soup"})}>Miso Soup</div>
-          </div>
-          <div className="menu">
-            {serverData.map((x, key) => 
-              <Dish data={x} key={key} updateFavoritesCB={this.updateFavorites} favoriteDataCB={this.state.favoriteData}/>
-            )}
-          </div>
+          
         </div> : "Loading..."}
       </div>
     );
