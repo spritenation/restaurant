@@ -175,6 +175,13 @@ class App extends Component {
                   updateFavoritesCB={this.updateFavorites} 
                   isFavorite={favorite}
                   favoriteDataCB={this.state.favoriteData}/>})}
+                <div className="icons_content">
+                  <hr/>
+                  <i className="food_add icons_item fa fa-twitter" aria-hidden="true"></i>
+                  <i className="food_add icons_item fa fa-instagram" aria-hidden="true"></i>
+                  <i className="food_add icons_item fa fa-facebook" aria-hidden="true"></i>
+                  <hr/>
+                </div>
             </div>
             <div className="hero noselect">
               ASIAN FOOD
@@ -185,7 +192,7 @@ class App extends Component {
           </main>  
           <footer>
             footer
-          </footer>        
+          </footer>   
         </div> : "Loading..."}
       </div>
     );

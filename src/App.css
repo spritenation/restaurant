@@ -257,6 +257,30 @@
   align-items: center;
 }
 
+.icons_content {
+  display: flex;
+  padding-top: 20px;
+  width: 85%;
+}
+
+.icons_item {
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+.icons_item:nth-child(2) {
+  color: #54C6FE;
+}
+
+.icons_item:nth-child(3) {
+  margin: 0 0;
+  color: #F3BC65;
+}
+
+.icons_content hr{
+  width: 100%;
+}
+
 @media only screen and (max-width: 1024px) {
   .food_container{
     width: 600px;
