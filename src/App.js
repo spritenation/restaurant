@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Favorites from './Favorites';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Dish extends Component {
   constructor(props){
@@ -164,24 +165,33 @@ class App extends Component {
                 <div className="menu_option noselect" 
                   onClick={() => this.setState({filterString: "miso soup"})}>SOUP</div>
               </div>
-              {serverData.map((x, key) => {
-                let favorite = false;
-                this.state.favoriteData.favorites.findIndex(y => y.id === x.id ? favorite = true : favorite = false);
+              <ReactCSSTransitionGroup
+              transitionName="fade"
+              transitionEnterTimeout={300}
+              transitionLeaveTimeout={300}
+              >
+                {serverData.map((x, key) => {
+                  let favorite = false;
+                  this.state.favoriteData.favorites.findIndex(y => y.id === x.id ? favorite = true : favorite = false);
+                  
+                return (<Dish class=
+                    {!this.state.animate ? "food_container" : "food_container food_container_animate"} 
+                    data={x} 
+                    key={key} 
+                    updateFavoritesCB={this.updateFavorites} 
+                    isFavorite={favorite}
+                    favoriteDataCB={this.state.favoriteData}/>)})
+                }
+              </ReactCSSTransitionGroup>
+              <div className="icons_content">
+                <hr/>
+                <i className="food_add icons_item fa fa-twitter" aria-hidden="true"></i>
+                <i className="food_add icons_item fa fa-instagram" aria-hidden="true"></i>
+                <i className="food_add icons_item fa fa-facebook" aria-hidden="true"></i>
+                <hr/>
+              </div>
                 
-                return <Dish class=
-                  {!this.state.animate ? "food_container" : "food_container food_container_animate"} 
-                  data={x} 
-                  key={key} 
-                  updateFavoritesCB={this.updateFavorites} 
-                  isFavorite={favorite}
-                  favoriteDataCB={this.state.favoriteData}/>})}
-                <div className="icons_content">
-                  <hr/>
-                  <i className="food_add icons_item fa fa-twitter" aria-hidden="true"></i>
-                  <i className="food_add icons_item fa fa-instagram" aria-hidden="true"></i>
-                  <i className="food_add icons_item fa fa-facebook" aria-hidden="true"></i>
-                  <hr/>
-                </div>
+              
             </div>
             <div className="hero noselect">
               ASIAN FOOD

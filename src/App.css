@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+span {
+  width: 100%;
+}
+
 .shadow {
   -webkit-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
   -moz-box-shadow: 0px 0px 50px -20px rgba(0,0,0,0.20);
@@ -279,6 +283,24 @@
 
 .icons_content hr{
   width: 100%;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave-active {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
 }
 
 @media only screen and (max-width: 1024px) {
