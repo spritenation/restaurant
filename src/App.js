@@ -3,11 +3,11 @@ import './App.css';
 import Favorites from './Favorites';
 
 class Dish extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       hovering: false,
-      favorite: ''
+      favorite: props.isFavorite
     };
   }
 
@@ -17,12 +17,12 @@ class Dish extends Component {
     const favoriteHangler = (id, title, contents) => {
       this.props.updateFavoritesCB(id, title, contents);
 
-      /*
+      
       if(this.props.favoriteDataCB.favorites.filter(x => x.id === data.id).length === 1){
         this.setState({favorite: true});
       }else{
         this.setState({favorite: false});
-      }*/
+      }
     }
 
     const hoverHandlerEnter = () => {
@@ -33,18 +33,22 @@ class Dish extends Component {
       this.setState({hovering:false});
     }
 
+    let ingredients = data.contents.map((el, key) => key !== data.contents.length - 1 ? `${el.toLowerCase()}, ` : el.toLowerCase()).join(' ');
+    let ingredientsFormatted = ingredients.toString().replace(/^\w/, c => c.toUpperCase());
+
     return (
-      <div className="food_container" onMouseEnter={hoverHandlerEnter} onMouseLeave={hoverHandlerLeave}>
+      <div className={`${this.props.class}`} onMouseEnter={hoverHandlerEnter} onMouseLeave={hoverHandlerLeave}>
         <div className="food_title">
           {data.title}
         </div>
         <div  className="food_info">
           
           <div className="main_info">
-            Ingredients: {data.contents.map((el, key) => key !== data.contents.length - 1 ? `${el}, ` : el)}.
+            Ingredients: {ingredientsFormatted}.
           </div>
-          <div className="small_info">
-          {`Price: ${data.price} `} &euro; {data.amount > 1 ? `(${data.amount} pieces)`: ""}
+          <div>
+            <span className="small_info small_info_bold">{`Price: ${data.price} `} &euro; </span>
+            <span className="small_info">{data.amount > 1 ? `(${data.amount} pieces)`: ""}</span>
           </div>
         </div>
         <div className={this.state.hovering ? "slide_add" : "add_container"} onClick={() => favoriteHangler(data.id, data.title, data.contents)}>
@@ -73,14 +77,14 @@ class Navbar extends Component{
   render(){
     return (
       <div className="header_container">
-        <div className="nav_text">
+        <div className="logo nav_text noselect">
           Discover Asia.
         </div>
-        <div className="about_button">
+        <div className="about_button nav_font noselect">
             About
         </div>
         {/* FIX THIS BUTTON */}
-        <div className="favorites_button">
+        <div className="favorites_button nav_font noselect">
           Favorites
         </div>
         {/*
@@ -104,15 +108,15 @@ class App extends Component {
     this.state = {
       serverData: "",
       filterString: "sushi",
-      favoriteData: new Favorites()
+      favoriteData: new Favorites(),
+      animate: false
     };
     this.updateFavorites = this.updateFavorites;
+    
   }
 
   //UPDATE FAVORITES HERE
   updateFavorites = (id, title, contents) => {
-    
-    
     if(!this.state.favoriteData.isFavorite(id)){
       this.state.favoriteData.addFavorite(id, title, contents);
     }else{
@@ -149,22 +153,39 @@ class App extends Component {
               <Navbar favoriteData={this.state.favoriteData}/>
             </div>
             <div className="menu">
+              <span className="menu_word">Menu</span>
               <div className="option_container">
-                <div className="menu_option" onClick={() => this.setState({filterString: "sushi"})}>SUSHI</div>
-                <div className="menu_option" onClick={() => this.setState({filterString: "nigiri"})}>NIGIRI</div>
-                <div className="menu_option" onClick={() => this.setState({filterString: "ramen"})}>RAMEN</div>
-                <div className="menu_option" onClick={() => this.setState({filterString: "miso soup"})}>SOUP</div>
+                <div className="menu_option noselect" 
+                  onClick={() => this.setState({filterString: "sushi"})}>SUSHI</div>
+                <div className="menu_option noselect" 
+                  onClick={() => this.setState({filterString: "nigiri"})}>NIGIRI</div>
+                <div className="menu_option noselect" 
+                  onClick={() => this.setState({filterString: "ramen"})}>RAMEN</div>
+                <div className="menu_option noselect" 
+                  onClick={() => this.setState({filterString: "miso soup"})}>SOUP</div>
               </div>
-              {serverData.map((x, key) => 
-                <Dish data={x} key={key} updateFavoritesCB={this.updateFavorites} favoriteDataCB={this.state.favoriteData}/>
-              )}
+              {serverData.map((x, key) => {
+                let favorite = false;
+                this.state.favoriteData.favorites.findIndex(y => y.id === x.id ? favorite = true : favorite = false);
+                
+                return <Dish class=
+                  {!this.state.animate ? "food_container" : "food_container food_container_animate"} 
+                  data={x} 
+                  key={key} 
+                  updateFavoritesCB={this.updateFavorites} 
+                  isFavorite={favorite}
+                  favoriteDataCB={this.state.favoriteData}/>})}
             </div>
-            <div className="hero">
+            <div className="hero noselect">
               ASIAN FOOD
             </div>
           </div>
-          
-          
+          <main>
+            main
+          </main>  
+          <footer>
+            footer
+          </footer>        
         </div> : "Loading..."}
       </div>
     );
