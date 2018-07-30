@@ -15,7 +15,9 @@ export default class Favorites {
     }
 
     isFavorite(id) {
-        return this.favorites.findIndex(el => el.id === id);
+        let result = false;
+        this.favorites.findIndex(el => el.id === id ? result = true : result = false);
+        return result;
     }
 
     getNumFavorites() {

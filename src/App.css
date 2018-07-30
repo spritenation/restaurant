@@ -16,7 +16,7 @@
   grid-template-columns: 1fr 125px 125px;
   align-items: center;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 400;
   padding: 20px;
 }
 
@@ -57,8 +57,11 @@
 /* LANDING */
 
 .landing_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   height: 100vh;
   min-height: 500px;
+
 }
 
 /* FAVORITES */
@@ -69,13 +72,12 @@
 }
 
 .favorites_button .favorites_list{
-  float:right;
-  position: relative;
+  position: absolute;
   top: 37px;
+  right:0px;
   opacity: 0;
   visibility: hidden;
   background: #F9AA36;
-  width: 200px;
   transition: all 0.3s ease-in-out;
 }
 
@@ -85,7 +87,17 @@
 }
 
 .favorite_item {
+  display: grid;
+  grid-template-columns: 100px 200px;
   padding: 10px;
+}
+
+.favorite_item_title {
+
+}
+
+.favorite_item_contents {
+  font-weight: 400;
 }
 
 /* MENU / FOOD DATA */

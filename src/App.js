@@ -7,15 +7,22 @@ class Dish extends Component {
     super();
     this.state = {
       hovering: false,
-      favorite: false
+      favorite: ''
     };
   }
 
   render(){
     let data = this.props.data;
-
+    
     const favoriteHangler = (id, title, contents) => {
       this.props.updateFavoritesCB(id, title, contents);
+
+      /*
+      if(this.props.favoriteDataCB.favorites.filter(x => x.id === data.id).length === 1){
+        this.setState({favorite: true});
+      }else{
+        this.setState({favorite: false});
+      }*/
     }
 
     const hoverHandlerEnter = () => {
@@ -52,12 +59,13 @@ class Dish extends Component {
 
 class Favorite extends Component{
   render(){
+    let data = this.props.data;
+    let ingredients = data.contents.map((el, key) => key !== data.contents.length - 1 ? `${el.toLowerCase()}, ` : el.toLowerCase()).join(' ');
+    let ingredientsFormatted = ingredients.toString().replace(/^\w/, c => c.toUpperCase());
     return (
-      <div className="favorites_button">
-        <span><div className="test"></div>Favorites</span>
-        <div className="favorites_list">
-          <div className="favorite_item">This is a favorite</div>
-        </div>
+      <div className="favorite_item">
+        <div className="favorite_item_title">{data.title}</div>
+        <div className="favorite_item_contents">{ingredientsFormatted}.</div>
       </div>
     )
   }
@@ -71,10 +79,22 @@ class Navbar extends Component{
           
         </div>
         <div className="about_button">
-          <div className="hover_effect"></div>
             About
         </div>
-        <Favorite/>
+        {/* FIX THIS BUTTON */}
+        <div className="favorites_button">
+          Favorites
+        </div>
+        {/*
+        <div className="favorites_button">
+          <span><div className="test"></div>Favorites</span>
+          <div className="favorites_list">
+              {this.props.favoriteData.favorites.map((x, key) => 
+                <Favorite data={x} key={key}/>
+              )}
+          </div>
+        </div>
+        */}
       </div>
     )
   }
@@ -93,14 +113,15 @@ class App extends Component {
 
   //UPDATE FAVORITES HERE
   updateFavorites = (id, title, contents) => {
-    if(this.state.favoriteData.isFavorite(id)){
+    
+    
+    if(!this.state.favoriteData.isFavorite(id)){
       this.state.favoriteData.addFavorite(id, title, contents);
     }else{
       this.state.favoriteData.deleteFavorite(id);
     }
 
     this.setState(this.state.favoriteData);
-    
 
     console.log(this.state.favoriteData)
   }
@@ -122,11 +143,12 @@ class App extends Component {
       
     return (
       <div className="App">
+        
         {serverData !== "" ?
         <div className="content">
-          <Navbar/>
+          <Navbar favoriteData={this.state.favoriteData}/>
           <div className="landing_container">
-            {this.state.favoriteData.favorites.map((x, key) => x.title)}
+          
           </div>
           <div className="option_container shadow">
             <div className="menu_option" onClick={() => this.setState({filterString: "sushi"})}>Sushi</div>
@@ -136,12 +158,9 @@ class App extends Component {
           </div>
           <div className="menu">
             {serverData.map((x, key) => 
-              <Dish data = {x} key = {key} updateFavoritesCB = {this.updateFavorites}/>
+              <Dish data={x} key={key} updateFavoritesCB={this.updateFavorites} favoriteDataCB={this.state.favoriteData}/>
             )}
           </div>
-          <main>
-            
-          </main>
         </div> : "Loading..."}
       </div>
     );
