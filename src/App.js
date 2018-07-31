@@ -86,10 +86,11 @@ class App extends Component {
       filterString: "sushi",
       favoriteData: new Favorites()
     };
+    this.state.favoriteData.readStorage();
     this.updateFavorites = this.updateFavorites;    
+    
   }
 
-  //UPDATE FAVORITES HERE
   updateFavorites = (id, title, contents) => {
     if(!this.state.favoriteData.isFavorite(id)){
       this.state.favoriteData.addFavorite(id, title, contents);
@@ -188,7 +189,7 @@ class App extends Component {
                   <li className="list_option">Lorem ipsum</li>
                 </ul>
             </div>
-            <div className="footer_cell_logo">ASIAN FOOD</div>
+            <div className="footer_cell_logo noselect">ASIAN FOOD</div>
           </footer>   
         </div> : "Loading..."}
       </div>

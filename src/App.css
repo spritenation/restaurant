@@ -313,7 +313,7 @@ footer {
   font-weight: 500;
   font-size: 14px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr 3fr;
   padding: 20px 0;
   text-align: left;
 }
@@ -326,6 +326,7 @@ footer {
   padding: 0px 20%;
   font-size: 30px;
   font-weight: 700;
+  text-align: center;
 }
 
 .list_option {

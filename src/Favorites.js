@@ -32,4 +32,9 @@ export default class Favorites {
     persistData() {
         localStorage.setItem('favoriteData', JSON.stringify(this.favorites));
     }
+
+    readStorage() {
+        const storage = JSON.parse(localStorage.getItem('favoriteData'));
+        if (storage) this.favorites = storage;
+    }
 }
