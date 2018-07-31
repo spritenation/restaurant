@@ -119,6 +119,7 @@ class App extends Component {
             <div className="navbar">
               <Navbar favoriteData={this.state.favoriteData}/>
             </div>
+
             <div className="menu">
               <span className="menu_word">Menu</span>
               <div className="option_container">
@@ -155,11 +156,39 @@ class App extends Component {
               ASIAN FOOD
             </div>
           </div>
+
           <main>
             
           </main>  
+
           <footer>
-            footer
+            <div className="footer_cell">
+                <span>TITLE</span>
+                <ul>
+                  <li className="list_option">Lorem ipsum</li>
+                  <li className="list_option">Lorem ipsum</li>
+                  <li className="list_option">Lorem ipsum</li>
+                  <li className="list_option">Lorem ipsum</li>
+                  <li className="list_option">Lorem ipsum</li>
+                </ul>
+            </div>
+            <div className="footer_cell">
+                <span>TITLE</span>
+                <ul>
+                  <li className="list_option">Lorem ipsum</li>
+                  <li className="list_option">Lorem ipsum</li>
+                  <li className="list_option">Lorem ipsum</li>
+                </ul>
+            </div>
+            <div className="footer_cell">
+                <span>TITLE</span>
+                <ul>
+                  <li className="list_option">Lorem ipsum</li>
+                  <li className="list_option">Lorem ipsum</li>
+                  <li className="list_option">Lorem ipsum</li>
+                </ul>
+            </div>
+            <div className="footer_cell_logo">ASIAN FOOD</div>
           </footer>   
         </div> : "Loading..."}
       </div>

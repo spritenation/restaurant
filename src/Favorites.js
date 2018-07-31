@@ -6,12 +6,17 @@ export default class Favorites {
     addFavorite(id, title, contents) {
         const favorite = {id, title, contents};
         this.favorites.push(favorite);
+
+        this.persistData();
+
         return favorite;
     }
 
     deleteFavorite(id) {
         const index = this.favorites.findIndex(el => el.id === id);
         this.favorites.splice(index, 1);
+
+        this.persistData();
     }
 
     isFavorite(id) {
@@ -22,5 +27,9 @@ export default class Favorites {
 
     getNumFavorites() {
         return this.favorites.length;
+    }
+
+    persistData() {
+        localStorage.setItem('favoriteData', JSON.stringify(this.favorites));
     }
 }
