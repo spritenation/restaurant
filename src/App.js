@@ -8,8 +8,7 @@ class Dish extends Component {
     super(props);
     this.state = {
       hovering: false,
-      favorite: props.isFavorite,
-      nav: 'menu'
+      favorite: props.isFavorite
     };
   }
 
@@ -52,25 +51,15 @@ class Dish extends Component {
             <span className="small_info">{data.amount > 1 ? `(${data.amount} pieces)`: ""}</span>
           </div>
         </div>
-        <div className={this.state.hovering ? "slide_add" : "add_container"} onClick={() => favoriteHangler(data.id, data.title, data.contents)}>
+        <div className={
+            this.state.favorite ? "slide_add" : (this.state.hovering ? "slide_add" : "add_container")
+             
+            
+            } onClick={() => favoriteHangler(data.id, data.title, data.contents)}>
           <i className={this.state.favorite ? "food_add fa fa-heart" : "food_add fa fa-heart-o"} aria-hidden="true"></i>
         </div>
       </div>
     );
-  }
-}
-
-class Favorite extends Component{
-  render(){
-    let data = this.props.data;
-    let ingredients = data.contents.map((el, key) => key !== data.contents.length - 1 ? `${el.toLowerCase()}, ` : el.toLowerCase()).join(' ');
-    let ingredientsFormatted = ingredients.toString().replace(/^\w/, c => c.toUpperCase());
-    return (
-      <div className="favorite_item">
-        <div className="favorite_item_title">{data.title}</div>
-        <div className="favorite_item_contents">{ingredientsFormatted}.</div>
-      </div>
-    )
   }
 }
 
@@ -84,20 +73,6 @@ class Navbar extends Component{
         <div className="about_button nav_font noselect">
             About
         </div>
-        {/* FIX THIS BUTTON */}
-        <div className="favorites_button nav_font noselect">
-          Favorites
-        </div>
-        {/*
-        <div className="favorites_button">
-          <span><div className="test"></div>Favorites</span>
-          <div className="favorites_list">
-              {this.props.favoriteData.favorites.map((x, key) => 
-                <Favorite data={x} key={key}/>
-              )}
-          </div>
-        </div>
-        */}
       </div>
     )
   }
@@ -181,7 +156,7 @@ class App extends Component {
             </div>
           </div>
           <main>
-            main
+            
           </main>  
           <footer>
             footer

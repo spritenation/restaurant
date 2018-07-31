@@ -53,10 +53,6 @@ span {
 
 .about_button {
   cursor: pointer;
-}
-
-.favorites_button {
-  cursor: pointer;
   margin: 0 20px 0 20px;
 }
 
@@ -101,7 +97,7 @@ span {
 
 .hero {
   
-  background-image: url("./img/splash3.jpg");
+  background-image: url("./img/splash3-min.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -187,8 +183,8 @@ span {
 .food_container {
   display: grid;
   overflow: hidden;
-  grid-template-columns: 8fr 8fr 50px;
-  width: 95%;
+  grid-template-columns: 1fr 2fr 50px;
+  width: 85%;
   height: 60px;
   transition: transform .1s, opacity 0.5s;
   opacity: 1;
@@ -300,6 +296,8 @@ span {
   opacity: 0;
   transition: opacity 300ms ease-out;
 }
+
+/* MAIN SECTION */
 
 /* MEDIA */
 
