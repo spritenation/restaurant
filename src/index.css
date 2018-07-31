@@ -1,8 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  background: #F8F9FB;
+  background: rgb(255, 255, 255);
   color: #2e2e2e;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
 }

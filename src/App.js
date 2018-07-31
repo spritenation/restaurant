@@ -8,7 +8,8 @@ class Dish extends Component {
     super(props);
     this.state = {
       hovering: false,
-      favorite: props.isFavorite
+      favorite: props.isFavorite,
+      nav: 'menu'
     };
   }
 
@@ -17,7 +18,6 @@ class Dish extends Component {
     
     const favoriteHangler = (id, title, contents) => {
       this.props.updateFavoritesCB(id, title, contents);
-
       
       if(this.props.favoriteDataCB.favorites.filter(x => x.id === data.id).length === 1){
         this.setState({favorite: true});
@@ -38,7 +38,7 @@ class Dish extends Component {
     let ingredientsFormatted = ingredients.toString().replace(/^\w/, c => c.toUpperCase());
 
     return (
-      <div className={`${this.props.class}`} onMouseEnter={hoverHandlerEnter} onMouseLeave={hoverHandlerLeave}>
+      <div className="food_container" id={data.id} onMouseEnter={hoverHandlerEnter} onMouseLeave={hoverHandlerLeave}>
         <div className="food_title">
           {data.title}
         </div>
@@ -79,7 +79,7 @@ class Navbar extends Component{
     return (
       <div className="header_container">
         <div className="logo nav_text noselect">
-          Discover Asia.
+          Discover Asia
         </div>
         <div className="about_button nav_font noselect">
             About
@@ -109,11 +109,9 @@ class App extends Component {
     this.state = {
       serverData: "",
       filterString: "sushi",
-      favoriteData: new Favorites(),
-      animate: false
+      favoriteData: new Favorites()
     };
-    this.updateFavorites = this.updateFavorites;
-    
+    this.updateFavorites = this.updateFavorites;    
   }
 
   //UPDATE FAVORITES HERE
@@ -130,7 +128,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const customData = "https://api.jsonbin.io/b/5b5b8601f24d8943d04eebf2/17"
+    const customData = "https://api.jsonbin.io/b/5b5b8601f24d8943d04eebf2/18"
     
     fetch(`${customData}`)
     .then(response => response.json())
@@ -138,16 +136,9 @@ class App extends Component {
   }
 
   render() {
-    let serverData = this.state.serverData;
-
-    if(this.state.serverData !== ""){
-      serverData = this.state.serverData.filter(x => x.type === this.state.filterString);
-    }
-      
     return (
       <div className="App">
-        
-        {serverData !== "" ?
+        {this.state.serverData !== "" ?
         <div className="content">
           <div className="landing_container">
             <div className="navbar">
@@ -165,24 +156,18 @@ class App extends Component {
                 <div className="menu_option noselect" 
                   onClick={() => this.setState({filterString: "miso soup"})}>SOUP</div>
               </div>
-              <ReactCSSTransitionGroup
-              transitionName="fade"
-              transitionEnterTimeout={300}
-              transitionLeaveTimeout={300}
-              >
-                {serverData.map((x, key) => {
-                  let favorite = false;
+                {
+                  this.state.serverData.filter(x => x.type === this.state.filterString).map((x, key) => {
+                  let favorite;
                   this.state.favoriteData.favorites.findIndex(y => y.id === x.id ? favorite = true : favorite = false);
                   
-                return (<Dish class=
-                    {!this.state.animate ? "food_container" : "food_container food_container_animate"} 
-                    data={x} 
-                    key={key} 
-                    updateFavoritesCB={this.updateFavorites} 
-                    isFavorite={favorite}
-                    favoriteDataCB={this.state.favoriteData}/>)})
-                }
-              </ReactCSSTransitionGroup>
+                  return (<Dish 
+                      data={x} 
+                      key={x.id} 
+                      updateFavoritesCB={this.updateFavorites} 
+                      isFavorite={favorite}
+                      favoriteDataCB={this.state.favoriteData}/>)})
+                }        
               <div className="icons_content">
                 <hr/>
                 <i className="food_add icons_item fa fa-twitter" aria-hidden="true"></i>
@@ -190,8 +175,6 @@ class App extends Component {
                 <i className="food_add icons_item fa fa-facebook" aria-hidden="true"></i>
                 <hr/>
               </div>
-                
-              
             </div>
             <div className="hero noselect">
               ASIAN FOOD

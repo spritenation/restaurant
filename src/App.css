@@ -61,8 +61,8 @@ span {
 }
 
 .nav_font {
-  font-weight: 700;
-  color: #9e9e9e;
+  font-weight: 500;
+  color: #bbbbbb;
 }
 
 .nav_font:hover {
@@ -100,24 +100,20 @@ span {
 }
 
 .hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-image: url("./img/splash1.jpg");
+  
+  background-image: url("./img/splash3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   grid-area: hero;
-  color: #fdfdfd;
+  color: #323232;
   font-weight: 700;
   font-size: 80px;
+  padding-top: 1%;
 
-  -webkit-text-shadow: 0px 0px 25px rgba(150, 150, 150, 0.5);
-  -moz-text-shadow: 0px 0px 25px rgba(150, 150, 150, 0.5);
-  text-shadow: 0px 0px 25px rgba(150, 150, 150, 0.5);
-
-  -webkit-box-shadow: inset 0px 0px 63px -7px rgba(0,0,0,0.75);
-  -moz-box-shadow: inset 0px 0px 63px -7px rgba(0,0,0,0.75);
-  box-shadow: inset 0px 0px 63px -7px rgba(0,0,0,0.75);
+  -webkit-box-shadow: inset 0px 0px 63px -7px rgba(0,0,0,0.10);
+  -moz-box-shadow: inset 0px 0px 63px -7px rgba(0,0,0,0.10);
+  box-shadow: inset 0px 0px 63px -7px rgba(0,0,0,0.10);
 }
 
 /* FAVORITES */
@@ -285,6 +281,8 @@ span {
   width: 100%;
 }
 
+/* React Transitions */
+
 .fade-enter {
   opacity: 0;
 }
@@ -302,6 +300,8 @@ span {
   opacity: 0;
   transition: opacity 300ms ease-out;
 }
+
+/* MEDIA */
 
 @media only screen and (max-width: 1024px) {
   .food_container{
@@ -328,5 +328,9 @@ span {
   .food_container{
     width: 95%;
     height: 85px;
+  }
+
+  .hero {
+    font-size: 50px;
   }
 }
